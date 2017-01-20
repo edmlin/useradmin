@@ -22,7 +22,7 @@ class roleAdminView
 <script>
 function getRoles()
 {
-	$.getJSON("?c=role&a=list",function(data){
+	$.getJSON("?c=role&a=getAll",function(data){
 		$("#role option").remove();
 		$.each(data,function(key,value){
 			$("#role").append("<option value='"+key+"'>"+value+"</option>");
@@ -33,7 +33,7 @@ function getRoles()
 
 function getRole(roleId)
 {
-	$.getJSON("?c=role&a=get&role_id="+roleId,function(data){
+	$.getJSON("?c=role&a=getSingle&role_id="+roleId,function(data){
 		$("#role_name").val(data.name);
 		$("#role_desc").val(data.description);
 	});
@@ -60,7 +60,7 @@ function createRole()
 	var name;
 	name=window.prompt("Please enter the new role's name:");
 	if(name===null) return;
-	$.getJSON("?c=role&a=new&role_name="+name,function(data){
+	$.getJSON("?c=role&a=create&role_name="+name,function(data){
 		$("#role").append("<option value="+data.id+">"+data.role_name+"</option>");
 		$("#role").val(data.id);
 		$("#role_name").val(data.role_name);
@@ -152,4 +152,4 @@ foreach($data['users'] as $user)
 <?php
 	}
 }
-return 'roleAdminView';
+return new roleAdminView;

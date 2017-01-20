@@ -1,7 +1,7 @@
 <?php
 class loginView
 {
-	static function render($data=array())
+	function render($data=array())
 	{
 ?>
 <!DOCTYPE html>
@@ -58,4 +58,4 @@ if(isset($data['message']))
 <?php
 	}
 }
-return 'loginView';
+return new loginView;

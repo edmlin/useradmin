@@ -1,3 +1,9 @@
+<?php
+class ChangePasswordView
+{
+	function render($data=array())
+	{
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,9 +33,9 @@
 
     <div class="container">
 <?php
-if(isset($message))
+if(isset($data['message']))
 {
-	print "<div class='alert alert-danger' role='alert' id=login-message>$message</div>";
+	print "<div class='alert alert-danger' role='alert' id=login-message>{$data['message']}</div>";
 }
 ?>
       <form class="form-signin" role="form" action='?c=user&a=change_password' method=post>
@@ -45,3 +51,7 @@ if(isset($message))
 
   </body>
 </html>
+<?php
+	}
+}
+return new ChangePasswordView;

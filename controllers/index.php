@@ -1,10 +1,9 @@
 <?php
-class IndexController
+class IndexController extends Controller
 {
-	static function handle($action)
+	function index($param)
 	{
-		$view=include "views/index.php";
-		$view::render();
+		$this->view='index';
 	}
 }
-return 'IndexController';
+return new IndexController;

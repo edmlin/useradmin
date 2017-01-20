@@ -1,7 +1,7 @@
 <?php
 class indexView
 {
-	static function render()
+	function render()
 	{
 ?>
 <!DOCTYPE HTML>
@@ -39,6 +39,7 @@ $(function(){
 <div style="float:left;width:20%;max-width:200px;margin:20px;" id='menu' class='list-group'>
 <a class='list-group-item' href='?c=user&a=admin' target='content'>USER ADMIN</a>
 <a class='list-group-item' href='?c=role&a=admin' target='content'>ROLE ADMIN</a>
+<a class='list-group-item' href='?c=user&a=change_password' target='content'>CHANGE PASSWORD</a>
 <a class='list-group-item' href='?c=user' target='_top'>LOGOUT</a>
 </div>
 <div style='overflow:hidden;height:100%;'>
@@ -50,4 +51,4 @@ $(function(){
 <?php
 	}
 }
-return 'indexView';
+return new indexView;

@@ -22,7 +22,7 @@ class userAdminView
 <script>
 function getUsers()
 {
-	$.getJSON("?c=user&a=list",function(data){
+	$.getJSON("?c=user&a=getAll",function(data){
 		$("#user option").remove();
 		$.each(data,function(key,value){
 			$("#user").append("<option value='"+value.id+"'>"+value.user_name+"</option>");
@@ -33,7 +33,7 @@ function getUsers()
 
 function getUser(userId)
 {
-	$.getJSON("?c=user&a=get&user_id="+userId,function(data){
+	$.getJSON("?c=user&a=getSingle&user_id="+userId,function(data){
 		$("#user_name").val(data.user_name);
 		$("#login_name").val(data.login_name);
 		$("#email").val(data.email);
@@ -62,7 +62,7 @@ function createUser()
 	var name;
 	name=window.prompt("Please enter the new user's login:");
 	if(name===null) return;
-	$.getJSON("?c=user&a=new&login_name="+name,function(data){
+	$.getJSON("?c=user&a=create&login_name="+name,function(data){
 		$("#user").append("<option value="+data.id+">"+data.user_name+"</option>");
 		$("#user").val(data.id);
 		$("#user_name").val(data.user_name);
@@ -225,4 +225,4 @@ foreach($data['privileges'] as $pr)
 <?php
 	}
 }
-return 'userAdminView';
+return new userAdminView;
