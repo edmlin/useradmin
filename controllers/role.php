@@ -1,7 +1,7 @@
 <?php
 class RoleController extends Controller
 {
-	var $privilegesRequired=array('*'=>'admin');
+	var $privilegesRequired=array('*'=>'permission-setting');
 	function admin($param)
 	{
 		$role=new Role;
@@ -38,6 +38,8 @@ class RoleController extends Controller
 		$this->data['users']=$user->Find(1);
 		$privilege=new Privilege;
 		$this->data['privileges']=$privilege->Find(1);
+		$this->data['role']=$role;
+		$this->data['message']="Record updated.";
 		$this->view='roleadmin';
 	}
 	function getAll($param)

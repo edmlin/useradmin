@@ -130,7 +130,15 @@ $(function(){
 	$(".checkall").change(function(){
 		$(this).closest("table").find("[name='privileges[]']").prop('checked',$(this).prop('checked'));
 	});
-	getUsers();
+<?php
+if(isset($data['user']))
+{
+?>
+	$("#user").val(<?php echo $data['user']->id;?>);
+<?php
+}
+?>
+	$("#user").change();
 	$("#reset").click(function(){$("#user").change();});
 	$("#change_password").click(function(){
 		togglePassword();
@@ -152,6 +160,12 @@ $(function(){
 <tr>
 <td>Select User: </td>
 <td><select name="user" id="user">
+<?php
+foreach($data['users'] as $user)
+{
+	print "<option value='$user->id'>$user->user_name</option>";
+}
+?>
 </select>
 <input type=button class="btn-primary" value="Create" onclick="createUser()">
 <input type=button class="btn-primary" value="Delete" onclick="deleteUser()">

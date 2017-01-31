@@ -81,6 +81,23 @@ function deleteRole()
 	});
 }
 
+function showMessage(message)
+{
+	if(message!="")
+	{
+		$("#message div").html(message);
+		if(message.match(/^error/i))
+		{
+			$("#message div").addClass('alert-danger');
+		}
+		else
+		{
+			$("#message div").addClass('alert-success');
+		}
+		$("#message").show();
+	}
+}
+
 $(function(){
 	$('input').addClass('form-control input-xs');
 	$('select').addClass('form-control input-xs');
@@ -96,16 +113,35 @@ $(function(){
 	$(".checkall").change(function(){
 		$(this).closest("table").find("[name='privileges[]']").prop('checked',$(this).prop('checked'));
 	});
-	getRoles();
+<?php
+if(isset($data['role']))
+{
+?>
+	$("#role").val(<?php echo $data['role']->id;?>);
+<?php
+}
+?>
+	$("#role").change();
 	$("#reset").click(function(){$("#role").change();});
+	showMessage("<?php print $data['message'];?>");
 })
 </script>
 </head>
 <body>
+<div id='message' style='display:none;padding:10px;'>
+	<div class="alert"  role="alert">
+	</div>
+</div>
 <div class='panel panel-default' id=panel >
 <div class='panel-body'>
 <form id='form1' class='form-inline' action="?c=role&a=submit" method=post>
 Role: <select name="role" id="role">
+<?php
+foreach($data['roles'] as $role)
+{
+	print "<option value='$role->id'>$role->role_name</option>";
+}
+?>
 </select>
 Name:<input name="role_name" id="role_name"/>
 Description:<input name="role_desc" id='role_desc'/>

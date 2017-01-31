@@ -1,7 +1,7 @@
 <?php
 class UserController extends Controller
 {
-	var $privilegesRequired=array('index'=>'','login'=>'','change_password'=>'','*'=>'admin');
+	var $privilegesRequired=array('index'=>'','login'=>'','change_password'=>'','*'=>'permission-setting');
 	function index($param)
 	{
 		$this->login($param);
@@ -141,6 +141,7 @@ class UserController extends Controller
 		$this->data['roles']=$role->Find(1);
 		$privilege=new Privilege;
 		$this->data['privileges']=$privilege->Find(1);
+		$this->data['user']=$user;
 		$this->view='useradmin';
 	}
 	function delete($param)
