@@ -14,7 +14,7 @@ class Db
 		{
 			if(empty(self::$connection))
 			{
-				self::$connection=ADONewConnection('mysql');
+				self::$connection=ADONewConnection('mysqli');
 				self::$connection->PConnect(
 				self::$dbhost,
 				self::$dbuser,

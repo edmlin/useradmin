@@ -16,8 +16,8 @@ class roleAdminView
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 <script src="js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/chosen.min.css"/>
-<script src="js/chosen.jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/select2.min.css"/>
+<script src="js/select2.min.js"></script>
 
 <script>
 function getRoles()
@@ -44,7 +44,7 @@ function getPrivileges(roleId)
 	$("input[name='privileges[]']").prop('checked',false);
 	$.getJSON("?c=role&a=getprivileges&role_id="+roleId,function(data){
 		$("#privilegeselect").val(data);
-		$("#privilegeselect").trigger("chosen:updated");
+		$("#privilegeselect").trigger("change.select2");
 	});
 }
 function getUsers(roleId)
@@ -52,7 +52,7 @@ function getUsers(roleId)
 	$("#userselect option").prop("selected",false);
 	$.getJSON("?c=role&a=getusers&role_id="+roleId,function(data){
 		$("#userselect").val(data);
-		$("#userselect").trigger("chosen:updated");
+		$("#userselect").trigger("change.select2");
 	});
 }
 function createRole()
@@ -66,9 +66,9 @@ function createRole()
 		$("#role_name").val(data.role_name);
 		$("#role_desc").val(data.description);
 		$("#privilegeselect").val([]);
-		$("#privilegeselect").trigger("chosen:updated");
+		$("#privilegeselect").trigger("change.select2");
 		$("#userselect").val([]);
-		$("#userselect").trigger("chosen:updated");
+		$("#userselect").trigger("change.select2");
 	});
 }
 
@@ -85,8 +85,8 @@ $(function(){
 	$('input').addClass('form-control input-xs');
 	$('select').addClass('form-control input-xs');
 	$("#tabs").tabs();
-	$("#privilegeselect").chosen({width:'100%'});
-	$("#userselect").chosen({width:'100%'});
+	$("#privilegeselect").select2();
+	$("#userselect").select2();
 	$("#role").change(function(){
 		getRole($("#role").val());
 		getPrivileges($("#role").val())
@@ -118,7 +118,7 @@ Description:<input name="role_desc" id='role_desc'/>
 </ul>
 <div id='privileges'>
 <div style='width:100%'>
-<select multiple name='privileges[]' id='privilegeselect' style='width:95%;' data-placeholder='Please select privileges'>
+<select multiple name='privileges[]' id='privilegeselect' style='width:100%;' data-placeholder='Please select privileges'>
 <?php
 foreach($data['privileges'] as $pr)
 {
@@ -130,7 +130,7 @@ foreach($data['privileges'] as $pr)
 </div>
 <div id='users'>
 <div style='width:100%'>
-<select multiple name="users[]" id="userselect" style='width:95%;' data-placeholder='Please select users'>
+<select multiple name="users[]" id="userselect" style='width:100%;' data-placeholder='Please select users'>
 <?php
 foreach($data['users'] as $user)
 {
