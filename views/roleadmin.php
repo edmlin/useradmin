@@ -158,7 +158,8 @@ Description:<input name="role_desc" id='role_desc'/>
 <?php
 foreach($data['privileges'] as $pr)
 {
-	print "<option value='{$pr->id}'>{$pr->privilege_name}</option>";
+	if(trim($pr->remarks)=="") $pr->remarks=$pr->privilege_name;
+	print "<option value='{$pr->id}'>{$pr->remarks}</option>";
 }
 ?>
 </select>

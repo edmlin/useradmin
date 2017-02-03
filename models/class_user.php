@@ -227,7 +227,7 @@ class User extends ADODB_Active_Record
 		else return false;
 	}
 	
-	function hasPrivileges($privileges)
+	function hasAllPrivileges($privileges)
 	{
 		if(empty($privileges)) return true;
 		if(is_string($privileges))
@@ -243,6 +243,24 @@ class User extends ADODB_Active_Record
 			if(!$this->hasPrivilege($pr)) return false;
 		}
 		return true;
+	}
+
+	function hasAnyPrivileges($privileges)
+	{
+		if(empty($privileges)) return true;
+		if(is_string($privileges))
+		{
+			$privileges=explode(',',$privileges);
+		}
+		else if(is_integer($privileges))
+		{
+			$privileges=array($privileges);
+		}
+		foreach($privileges as $pr)
+		{
+			if($this->hasPrivilege($pr)) return true;
+		}
+		return false;
 	}
 	
 	public static function newUser($login_name,$password,$user_name="",$email="")

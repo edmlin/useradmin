@@ -3,6 +3,7 @@ class Controller
 {
 	var $view=null;
 	var $data=null;
+	var $actionMap=array();
 	private function checkPrivilege($user,$action)
 	{
 		if(empty($this->privilegesRequired)) 
@@ -11,7 +12,7 @@ class Controller
 		}
 		if(isset($this->privilegesRequired[$action]))
 		{ 
-			if(empty($this->privilegesRequired[$action]) || $user->hasPrivileges($this->privilegesRequired[$action])) 
+			if(empty($this->privilegesRequired[$action]) || $user->hasAllPrivileges($this->privilegesRequired[$action])) 
 			{
 				return true;
 			}
@@ -23,7 +24,7 @@ class Controller
 		}
 		else if(isset($this->privilegesRequired['*']))
 		{
-			if(empty($this->privilegesRequired['*']) || $user->hasPrivileges($this->privilegesRequired['*']))
+			if(empty($this->privilegesRequired['*']) || $user->hasAllPrivileges($this->privilegesRequired['*']))
 			{
 				return true;
 			}
@@ -47,6 +48,7 @@ class Controller
 		}
 		else
 		{
+			if(isset($this->actionMap[$action])) $action=$this->actionMap[$action];
 			$this->$action($_REQUEST);
 		}
 		if($this->view!=null)
